@@ -38,5 +38,5 @@ Il ne nous reste plus qu'a essayer d'atteindre l'endpoint **/WeatherForecast** d
 
 ---
 
-![Smiling Dog](https://s.abcnews.com/images/Lifestyle/HT_Herbert_Smiling_Dog_2_ER_160113_16x9_992.jpg)
+![dancing cat](https://giphy.com/gifs/stand-up-ACVoiOEjbA6nC)
 
