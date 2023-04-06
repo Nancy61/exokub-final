@@ -1,41 +1,41 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: demo-micro-database-deployment
+  name: tasks-api-deployment
 spec:
   selector:
     matchLabels:
-      app: demo-micro-database
+      app: tasks-api
   template:
     metadata:
       labels:
-        app: demo-micro-database
+        app: tasks-api
     spec:
       volumes:
-        - name: demo-micro-database-volume
+        - name: tasks-volume
           hostPath:
-            path: /demo-micro-database-data
+            path: /tasks-data
             type: DirectoryOrCreate
       containers:
-      - name: demo-micro-database
-        image: gharrowbm/demo-micro-database:latest
+      - name: tasks-1
+        image: nancylence/project-tasks:latest
         volumeMounts:
-          - mountPath: /var/lib/mysql
-            name: demo-micro-database-volume
+          - mountPath: /app/tasks
+            name: tasks-volume
         env:
-          - name: MYSQL_ROOT_PASSWORD
+          - name: AUTH_ADDRESS
             valueFrom:
               configMapKeyRef:
-                name: demo-micro-env
-                key: MYSQL_ROOT_PASSWORD
-          - name: MYSQL_DATABASE
+                name: exokub-final-env
+                key: AUTH_ADDRESS
+          - name: TASKS_FOLDER
             valueFrom:
               configMapKeyRef:
-                name: demo-micro-env
-                key: MYSQL_DATABASE
+                name: exokub-final-env
+                key: TASKS_FOLDER
         resources:
           limits:
             memory: "512Mi"
             cpu: "500m"
         ports:
-        - containerPort: 3306
+        - containerPort: 8000
