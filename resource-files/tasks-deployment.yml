@@ -3,6 +3,7 @@ kind: Deployment
 metadata:
   name: tasks-api-deployment
 spec:
+  replicas: 3
   selector:
     matchLabels:
       app: tasks-api

@@ -1,42 +1,43 @@
-### Section Docker
+# Comment utiliser l'Application ? 
 
-Pour build l'image, la push sur DockerHub, il faut réaliser les commandes ci-dessous (en partant du principe que l'on est dans l'emplacement du fichier Dockerfile): 
+### Dans un Docker Compose
 
-```bash
-docker build -t nom-repository/nom-image:latest .
-docker login
-docker push nom-repository/nom-image:latest
-```
-
-Si l'on veut la tester, on peut le faire via la commande suivante: 
+Pour utiliser l'application dans le cadre de Docker compose, il suffit d'entrer la commande ci-dessous: 
 
 ```bash
-docker run -d -p 80:80 nom-repository/nom-image:latest
+docker compose up -d --build
 ```
+
+Il est ensuite possible de tester l'application via l'utilisation d'un client REST de type **Postman** ou **Thunder Client**: 
+
+* Pour les tâches (il faut un Bearer Token ayant pour valeur `abc`):
+  * **POST /tasks**: Il est possible de poster un JSON possédant les attributs **test** et **title**, tous les deux de type **string**.
+  * **GET /tasks**: On récupère ensuite les tâches
+* Pour les utilisateurs:
+  * **POST /signup**: Il est possible de poster un JSON ayant pour attributs **email** et **password**, tous les deux de type **string**
+  * **POST /login**: Il est ensuite possible de poster le même JSON dans le but de se voir répondre un token d'authentification à condition que l'utilisateur ait été créé via l'endpoint précédent.
 
 ---
 
-### Section K8s
+### Dans un cluster Kubernetes
 
-Pour pouvoir lancer notre image sur Kubernetes, il nous faut avoir un cluster. Dans notre cas, nous utiliserons minikube:
+A partir d'un cluster généré via minkube, dont la création provient de la ligne de commande ci-dessous: 
 
 ```bash
 minikube start --driver docker
 ```
 
-Puis il va nous falloir appliquer nos fichiers de ressources à notre cluster pour changer son état et permettre:
-
-* La création dans les nodes de nos pods faisant tourner les conteneurs avec notre image
-* La création d'un service de type **LoadBalancer** permettant d'atteindre l'une des 5 replicas en cas de crash / restart de l'un de nos pods.
+Il est possible d'appliquer les fichiers de ressources joint au projet dans le cluster. Tout d'abord, il nous faut appliquer l'environnement via la commande ci-dessous: 
 
 ```bash
-kubectl apply -f .\ressources-files\deployment.yml,.\ressources-files\service.yml
-minikube service dotnet-app-service
+kubectl apply -f .\ressources-files\environment.yml
 ```
 
-Il ne nous reste plus qu'a essayer d'atteindre l'endpoint **/WeatherForecast** de notre API via l'ajout en suffixe de l'adresse générée par minikube de cette route.
+Puis on peut appliquer le reste des fichiers de ressources via la commande ci-dessous: 
 
----
-
+```bash
+kubectl apply -f .\ressources-files\
+```
+Petit fun si vous réussisissez :-)
 ![dancing cat](https://media.giphy.com/media/ACVoiOEjbA6nC/giphy.gif)
 

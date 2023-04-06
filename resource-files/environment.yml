@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: exokub-final-env
 data:
-  AUTH_ADDRESS: auth-api-service.default
+  AUTH_ADDRESS: auth-api-service.default #on lui donne cette valeur parce que ça doit pointer vers le dns du service aut et on met default le default.
   TASKS_FOLDER: tasks
