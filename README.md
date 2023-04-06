@@ -38,5 +38,5 @@ Il ne nous reste plus qu'a essayer d'atteindre l'endpoint **/WeatherForecast** d
 
 ---
 
-![dancing cat](https://giphy.com/gifs/stand-up-ACVoiOEjbA6nC)
+![dancing cat](https://media.giphy.com/media/ACVoiOEjbA6nC/giphy.gif)
 
